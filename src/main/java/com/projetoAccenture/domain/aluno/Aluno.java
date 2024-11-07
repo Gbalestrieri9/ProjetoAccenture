@@ -3,6 +3,7 @@ package com.projetoAccenture.domain.aluno;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Aluno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +22,13 @@ public class Aluno {
 
     @Column(unique = true)
     private String email;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
+
+    @PrePersist
+    protected void data() {
+        this.dataCadastro = new Date();
+    }
 }
 
